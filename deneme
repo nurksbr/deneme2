@@ -1,0 +1,63 @@
+def display_menu():
+    print("\nTo-Do List Menu:")
+    print("1. Görev Ekle")
+    print("2. Görevleri Listele")
+    print("3. Görev Sil")
+    print("4. Çıkış")
+
+def add_task(tasks):
+    print("[DEBUG] add_task fonksiyonu çağrıldı.")
+    task = input("Eklemek istediğiniz görevi yazın: ")
+    print(f"[DEBUG] Kullanıcıdan alınan görev: {task}")
+    tasks.append(task)
+    print(f"'{task}' görevi eklendi.")
+
+def list_tasks(tasks):
+    print("[DEBUG] list_tasks fonksiyonu çağrıldı.")
+    if not tasks:
+        print("Henüz hiçbir görev eklenmemiş.")
+    else:
+        print("\nTo-Do List Görevleri:")
+        for idx, task in enumerate(tasks, start=1):
+            print(f"{idx}. {task}")
+    print(f"[DEBUG] Mevcut görev listesi: {tasks}")
+
+def delete_task(tasks):
+    print("[DEBUG] delete_task fonksiyonu çağrıldı.")
+    list_tasks(tasks)
+    if tasks:
+        try:
+            task_num = int(input("Silmek istediğiniz görevin numarasını girin: "))
+            print(f"[DEBUG] Kullanıcıdan alınan görev numarası: {task_num}")
+            if 1 <= task_num <= len(tasks):
+                removed_task = tasks.pop(task_num - 1)
+                print(f"'{removed_task}' görevi silindi.")
+            else:
+                print("Geçersiz görev numarası.")
+        except ValueError:
+            print("Lütfen geçerli bir sayı girin.")
+
+def main():
+    print("[DEBUG] Program başlatılıyor.")
+    tasks = []
+    while True:
+        print(f"[DEBUG] Mevcut görev listesi döngü başında: {tasks}")
+        display_menu()
+        choice = input("Bir seçenek girin (1-4): ")
+        print(f"[DEBUG] Kullanıcıdan alınan seçim: {choice}")
+
+        if choice == "1":
+            add_task(tasks)
+        elif choice == "2":
+            list_tasks(tasks)
+        elif choice == "3":
+            delete_task(tasks)
+        elif choice == "4":
+            print("Çıkış yapılıyor. İyi günler!")
+            print("[DEBUG] Programdan çıkılıyor.")
+            break
+        else:
+            print("Geçersiz bir seçenek girdiniz. Lütfen tekrar deneyin.")
+
+if __name__ == "__main__":
+    main()
